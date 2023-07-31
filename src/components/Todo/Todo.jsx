@@ -1,63 +1,52 @@
-import { useState } from "react"
-import Task from "../Task"
-import "./Todo.css"
-
-let count = 0;
+import { useState } from 'react'
+import Task from '../Task'
+import './Todo.css'
 
 const Todo = () => {
-  const [message, setMessage] = useState("");
-  const [tasks, setTasks] = useState([]);
-  const [isEdit, setIsEdit] = useState(false);
-  const [item, setItem] = useState(null);
+  const [task, setTask] = useState({msg:""})
+  const [tasks, setTasks] = useState([])
+  const [editingTask, setEditingTask] = useState(false)
 
   const addTask = () => {
-    if (message != "") {
-      setTasks(tasks => [...tasks, {id:count++, msg:message}]);
-      setMessage("");
+    if (task?.msg.trim() != "") {
+      setTasks([...tasks, {id: (tasks[tasks.length - 1]?.id || 0) + 1, msg: task?.msg}]);
+      setTask({msg:""}); 
     }
   }
 
   const saveTask = () => {
-    if (message != "") {
-      setTasks(tasks => tasks.map(task => {
-        if (task === item) {
-          task.msg = message;
-        }
-        return task;
-      }))
-    setIsEdit(false);
-    setMessage("");
+    if (task?.msg.trim() != "") {
+      setTasks(prevTasks => prevTasks.map(prevTask => (prevTask.id === task.id ? {...prevTask, msg: task.msg} : prevTask)));
+      setEditingTask(false);
+      setTask({msg:""}); 
     }
   }
 
-  const deleteTask = id => setTasks(tasks => tasks.filter(task => task.id !== id));
-
   const editTask = (id) => {
-    const item = tasks.find(task => task.id === id);
-    setItem(item);
-    setMessage(item.msg);
-    setIsEdit(true);
-  };
+    setTask(tasks.find(task => task.id === id));
+    setEditingTask(true);
+  }
 
-  const funcs = {deleteTask,editTask};
-  
+  const deleteTask = (id) => setTasks(prevTasks => prevTasks.filter(prevTask => prevTask.id !== id));
+
+  const functions = { deleteTask, editTask };
+  const buttonStyle = editingTask ? 'save-btn' : 'add-btn';
+  const buttonText = editingTask ? 'Guardar' : 'Agregar';
+
   return (
     <div className="card">
       <div className="header-card">
-        <input className="input-task" 
-        type="text" 
-        placeholder="Ingrese una tarea" 
-        onChange={e => setMessage(e.target.value)}
-        value={message} />
-        {isEdit ? 
-          <button className="save-btn" type="button" onClick={saveTask}>Guardar</button> 
-          :
-          <button className="add-btn" type="button" onClick={addTask}>Agregar</button>
-        }
+        <input className="input-task" type="text" placeholder="Ingrese una tarea"
+          onChange={e => setTask(prevTask => ({id:prevTask.id, msg:e.target.value}))}
+          value={task?.msg}
+        />
+        <button className={buttonStyle} type="button" onClick={editingTask ? saveTask : addTask}>
+          {buttonText}
+        </button>
       </div>
-      {tasks.map(task => <Task key={task.id} {...task} {...funcs}/>)}
+      {tasks.map(task => <Task key={task.id} {...task} {...functions} />)}
     </div>
-  )
+  );
 }
 
 export default Todo;

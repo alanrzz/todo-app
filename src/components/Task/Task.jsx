@@ -1,6 +1,7 @@
-import "./Task.css"
+import './Task.css'
 
-const Task = ({id,msg,deleteTask,editTask}) => {
+const Task = (props) => {
+  const { id, msg, deleteTask, editTask } = props;
   return (
     <div className="task">
       <p className="text">{msg}</p>

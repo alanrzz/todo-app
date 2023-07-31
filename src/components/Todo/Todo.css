@@ -8,6 +8,14 @@
   padding-top: 20px;
 }
 
+/* Estilos para .card en pantallas más pequeñas */
+@media (max-width: 600px) {
+  .card {
+    width: 90%;
+    max-width: 500px;
+  }
+}
+
 .header-card {
   display: flex;
   justify-content: space-between;
@@ -25,6 +33,13 @@
   border-style: solid;
   border-color: lightgray;
   transition: box-shadow 0.15s;
+}
+
+/* Estilos para .input-task en pantallas más pequeñas */
+@media (max-width: 600px) {
+  .input-task {
+    width: 100%;
+  }
 }
 
 .input-task:hover {
@@ -52,8 +67,18 @@
   transition: box-shadow 0.15s;
 }
 
+/* Estilos para .add-btn y .save-btn en pantallas más pequeñas */
+@media (max-width: 600px) {
+  .add-btn,
+  .save-btn {
+    width: 50%;
+    padding: 10px;
+    margin-left: 10px;
+  }
+}
+
 .add-btn:hover,
-.save-btn {
+.save-btn:hover {
   box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.15);
 }
 

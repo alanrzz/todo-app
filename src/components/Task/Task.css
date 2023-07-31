@@ -11,8 +11,8 @@
   border-radius: 5px;
 }
 
-.delete-btn {
-  background-color: rgb(226, 48, 48);
+.delete-btn,
+.edit-btn {
   color: white;
   font-weight: bold;
   border: none;
@@ -25,23 +25,20 @@
   transition: box-shadow 0.15s;
 }
 
-.delete-btn:hover {
-  box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.15);
+.delete-btn {
+  background-color: rgb(226, 48, 48);
 }
 
 .edit-btn {
   background-color: rgb(226, 128, 48);
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  cursor: pointer;
-  transition: box-shadow 0.15s;
 }
 
-.edit-btn:hover {
-  box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.15);
+/* Estilos para .delete-btn y .edit-btn en pantallas más pequeñas */
+@media (max-width: 600px) {
+  .delete-btn,
+  .edit-btn {
+    font-size: 14px;
+    padding: 8px;
+    margin-left: 5px;
+  }
 }

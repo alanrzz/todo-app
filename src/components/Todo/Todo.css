@@ -85,3 +85,9 @@
 .save-btn {
   background-color: rgb(4, 170, 12);
 }
+
+.text-without-tasks {
+  font-size: 15px;
+  color: gray;
+  margin-left: 5px;
+}

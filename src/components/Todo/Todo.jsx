@@ -41,6 +41,7 @@ const Todo = () => {
 
   return (
     <div className="card">
+      <h1>TODO APP</h1>
       <form className="header-card">
         <input ref={inputRef} className="input-task" type="text" placeholder="Ingrese una tarea"
           onChange={e => setTask(prevTask => ({id:prevTask.id, msg:e.target.value}))}
@@ -50,6 +51,7 @@ const Todo = () => {
           {buttonText}
         </button>
       </form>
+      <p className="text-without-tasks" hidden={tasks.length}>No tienes tareas por el momento.</p>
       {tasks.map(task => <Task key={task.id} {...task} {...functions} />)}
     </div>
   );

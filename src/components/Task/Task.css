@@ -42,7 +42,8 @@
   }
 }
 
-.text {
+.text,
+.checked-text {
   width: 370px;
   overflow-wrap: break-word;
   text-align: justify;
@@ -53,4 +54,18 @@
   .text {
     width: 180px;
   }
+}
+
+.task-right-section {
+  display: flex;
+}
+
+.complete-task-checkbox {
+  width: 18px;
+  margin: 0;
+}
+
+.checked-text {
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.3);
 }

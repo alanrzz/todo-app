@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Task from '../Task';
 import './Todo.css';
 
@@ -7,6 +7,10 @@ const Todo = () => {
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(false);
   const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  });
 
   const validation = e => {
     e.preventDefault();

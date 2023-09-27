@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
+import {DndContext, closestCenter, useSensors, useSensor, PointerSensor} from '@dnd-kit/core'
+import {SortableContext, verticalListSortingStrategy, arrayMove} from '@dnd-kit/sortable'
 import Task from '../Task';
 import './Todo.css';
 
@@ -40,6 +42,23 @@ const Todo = () => {
 
   const deleteTask = id => setTasks(prevTasks => prevTasks.filter(prevTask => prevTask.id !== id));
 
+  const handleDragEnd = (event) => {
+    const {active, over} = event;
+    setTasks(() => {
+      const oldIndex = tasks.findIndex(task => task.id === active.id);
+      const newIndex = tasks.findIndex(task => task.id === over.id);
+      return arrayMove(tasks, oldIndex, newIndex);
+    })
+  }
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  )
+
   const functions = { deleteTask, editTask };
   const [buttonStyle, buttonText] = editingTask ? ['save-btn', 'Guardar'] : ['add-btn', 'Agregar'];
 
@@ -56,7 +75,11 @@ const Todo = () => {
         </button>
       </form>
       <p className="text-without-tasks" hidden={tasks.length}>No tienes tareas por el momento.</p>
-      {tasks.map(task => <Task key={task.id} {...task} {...functions} />)}
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} sensors={sensors}>
+        <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
+          {tasks.map(task => <Task key={task.id} {...task} {...functions} />)}
+        </SortableContext>
+      </DndContext>
     </div>
   );
 }

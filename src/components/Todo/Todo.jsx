@@ -5,6 +5,7 @@ import Task from '../Task';
 import './Todo.css';
 
 const Todo = () => {
+  const [count, setCount] = useState(1);
   const [task, setTask] = useState({msg:""});
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(false);
@@ -21,7 +22,8 @@ const Todo = () => {
 
   const addTask = e => {
     if (validation(e)) {
-      setTasks([...tasks, {id: (tasks[tasks.length - 1]?.id || 0) + 1, msg: task?.msg}]);
+      setCount(count + 1)
+      setTasks([...tasks, {id: count, msg: task?.msg}]);
       setTask({msg:''});
     }
   }
@@ -44,6 +46,7 @@ const Todo = () => {
 
   const handleDragEnd = (event) => {
     const {active, over} = event;
+    console.log("active:",active, ",over:", over);
     setTasks(() => {
       const oldIndex = tasks.findIndex(task => task.id === active.id);
       const newIndex = tasks.findIndex(task => task.id === over.id);

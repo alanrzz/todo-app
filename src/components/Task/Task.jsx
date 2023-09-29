@@ -7,11 +7,17 @@ import './Task.css';
 
 const Task = (props) => {
   const { id, msg, deleteTask, editTask } = props;
-  const [checked, setChecked] = useState(false);
-  const {attributes,listeners,setNodeRef,transform,transition} = useSortable({id:id});
-
+  const [ checked, setChecked ] = useState(false);
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({id:id});
+  
+  const newTransform = {
+    ...transform,
+    scaleX: 1,
+    scaleY: 1 
+  };
+  
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Transform.toString(newTransform),
     transition
   }
 

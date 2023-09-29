@@ -5,10 +5,10 @@ import Task from '../Task';
 import './Todo.css';
 
 const Todo = () => {
-  const [count, setCount] = useState(1);
-  const [task, setTask] = useState({msg:""});
-  const [tasks, setTasks] = useState([]);
-  const [editingTask, setEditingTask] = useState(false);
+  const [ count, setCount ] = useState(1);
+  const [ task, setTask ] = useState({msg:""});
+  const [ tasks, setTasks ] = useState([]);
+  const [ editingTask, setEditingTask ] = useState(false);
   const inputRef = useRef();
 
   useEffect(() => {
@@ -46,7 +46,6 @@ const Todo = () => {
 
   const handleDragEnd = (event) => {
     const {active, over} = event;
-    console.log("active:",active, ",over:", over);
     setTasks(() => {
       const oldIndex = tasks.findIndex(task => task.id === active.id);
       const newIndex = tasks.findIndex(task => task.id === over.id);
